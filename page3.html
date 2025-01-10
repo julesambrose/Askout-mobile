@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Hi You!!</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+            <div class="Animation1">
+                <div class="mySlides">
+                    <img src="cutu11.png" alt="Image 1">
+                </div>
+
+                <div class="mySlides">
+                    <img src="cutu13.png" alt="Image 2">
+                </div>
+
+                <div class="mySlides">
+                    <img src="cutu14.png" alt="Image 2">
+                </div>
+
+            </div>   
+            <audio id="moveSound" preload="auto">
+                <source src="rizz.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+            <script>
+                let slideIndex = 0;
+                showSlides();
+                playMoveSound();
+                // var audio = document.getElementById('moveSound');
+                // audio.loop = true;
+                // audio.play();
+
+
+                function playMoveSound() {
+                    var sound = document.getElementById("moveSound");
+                    sound.play();
+                }
+            
+                function showSlides() {
+                let i;
+                const slides = document.getElementsByClassName("mySlides");
+                
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+            
+                slideIndex++;
+            
+                if (slideIndex > slides.length) {
+                    slideIndex = 1;
+                }
+            
+                slides[slideIndex - 1].style.display = "block";
+                setTimeout(showSlides, 800); // Change slide every 2000 milliseconds (2 seconds)
+                }
+                </script>   
+    </body>
+</html>
