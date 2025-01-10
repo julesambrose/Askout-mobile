@@ -1,88 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Hi You!!</title>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <body>
-        <div class="main">
-            <div class="Hey">
-                <h2></h2>
-                    <label style="font-size:35px;">Do you wanna go out? </label>
-                    <br>
-                    <a href="page3.html">
-                        <button style="font-size:35px; background-color: #FFB8BF;">yes</button>
-                    </a>
-                    <a href="page4.html">
-                        <button id="moveButton" onmouseover="moveButton()" style="font-size:35px; background-color: #FFB8BF;">No</button>   
-                        <audio id="moveSound" preload="auto">
-                            <source src="Aww.mp3" type="audio/mp3">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi You!!</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
 
-                            function moveButton() {
-                                var button = document.getElementById("moveButton");
-                                var newPosition = getRandomPosition();
-                                // Apply new position
-                                button.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px)`;
-                                playMoveSound();
-                            }
-                        
-                            function getRandomPosition() {
-                                // Replace these values with your desired range
-                                var maxX = window.innerWidth - 1800; // Adjusted to prevent button from going out of screen
-                                var maxY = window.innerHeight - 1800; // Adjusted to prevent button from going out of screen
-                                var randomX = Math.floor(Math.random() * maxX);
-                                var randomY = Math.floor(Math.random() * maxY);
-                            
-                                return { x: randomX, y: randomY };
-                            }
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            width: 100vw;
+            justify-content: center; /* Vertically center content */
+        }
 
-                            function playMoveSound() {
-                                var sound = document.getElementById("moveSound");
-                                sound.play();
-                            }
-                        </script>
-                    </a>
-            </div>
-            <div class="slideshow-container">
-                <div class="mySlides">
+        .Hey {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 500px; /* Limit width on larger screens */
+        }
+
+        .Hey label {
+            font-size: 1.5rem; /* Use rem for font sizing */
+        }
+
+        .Hey a, .Hey button{
+            display: inline-block; /* Prevent buttons from stacking */
+            margin: 5px;
+            text-decoration: none;
+        }
+
+        .Hey button {
+            font-size: 1.2rem;
+            background-color: #FFB8BF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        #moveButton {
+            position: absolute;
+            transition: transform 0.2s ease;
+        }
+
+        .slideshow-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto; /* Center the slideshow */
+        }
+
+        .mySlides img {
+            width: 100%;
+            display: block;
+        }
+
+        .mySlides {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="Hey">
+            <label>Do you wanna go out?</label><br>
+            <a href="page3.html"><button>Yes</button></a>
+            <button id="moveButton" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+            <audio id="moveSound" preload="auto">
+                <source src="Aww.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <div class="slideshow-container">
+            <div class="mySlides">
                 <img src="cutu1.png" alt="Image 1">
-                </div>
-
-                <div class="mySlides">
+            </div>
+            <div class="mySlides">
                 <img src="cutu2.png" alt="Image 2">
             </div>
-                <!-- Add more slides as needed -->
-
-	    </div>
-	    <script>
-	    let slideIndex = 0;
-	    showSlides();
-
-	    function showSlides() {
-		let i;
-		const slides = document.getElementsByClassName("mySlides");
-
-		for (i = 0; i < slides.length; i++) {
-		    slides[i].style.display = "none";
-		}
-
-		slideIndex++;
-
-		if (slideIndex > slides.length) {
-		    slideIndex = 1;
-		}
-
-		slides[slideIndex - 1].style.display = "block";
-		setTimeout(showSlides, 800); // Change slide every 2000 milliseconds (2 seconds)
-	    }
-	    </script>
-
         </div>
-    </body>
+    </div>
+
+    <script>
+        function moveButton() {
+            const button = document.getElementById("moveButton");
+            const buttonWidth = button.offsetWidth;
+            const buttonHeight = button.offsetHeight;
+            const maxX = window.innerWidth - buttonWidth - 20; // Account for margins
+            const maxY = window.innerHeight - buttonHeight - 20;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            document.getElementById("moveSound").play();
+        }
+
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            const slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 800);
+        }
+    </script>
+</body>
 </html>
